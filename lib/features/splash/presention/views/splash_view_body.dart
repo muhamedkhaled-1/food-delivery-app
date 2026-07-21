@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery_app/features/on_boarding/presentation/views/on_boarding_view.dart';
 
-import '../../../../assets/assets.dart';
+import '../../../../core/utilis/assets/assets.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
