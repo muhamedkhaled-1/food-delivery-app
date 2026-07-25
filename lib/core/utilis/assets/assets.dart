@@ -4,7 +4,7 @@ abstract final class Assets {
   static const String bottom = 'assets/Ellipse 1006.svg';
   static const String logo = 'assets/Logo.svg';
   static const String Onboarding_image_1 = 'assets/Onboarding_01.jpg';
-  static const String Onboarding_image_2 = 'assets/Onboarding_02.jpg';
+  static const String Onboarding_image_2 = 'assets/Onboarding_2.jpg';
   static const String Onboarding_image_3 = 'assets/Onboarding_03.jpg';
 
 

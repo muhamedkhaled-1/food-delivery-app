@@ -10,7 +10,10 @@ class PageViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Center(child: Image.asset(image)),
+        Center(child: SizedBox(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height*.5,
+            child: Image.asset(image))),
          SizedBox(height: 63,),
          Text(title,style: TextStyle(
            fontSize: 24,
