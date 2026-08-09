@@ -6,6 +6,12 @@ abstract final class Assets {
   static const String Onboarding_image_1 = 'assets/Onboarding_01.jpg';
   static const String Onboarding_image_2 = 'assets/Onboarding_2.jpg';
   static const String Onboarding_image_3 = 'assets/Onboarding_03.jpg';
+  static const String login_header2 = 'assets/login_header2.svg';
+  static const String login_header = 'assets/login_header.svg';
+  static const String facebook = 'assets/facebook.svg';
+  static const String twitter = 'assets/twitter.svg';
+  static const String apple = 'assets/apple.svg';
+
 
 
 }
