@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/features/auth/presentation/views/forget_password_view.dart';
 
 import '../../../../../constants.dart';
 import '../../../../../core/utilis/app_text_styles.dart';
@@ -40,7 +41,9 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
         ),
         Spacer(),
         GestureDetector(
-          onTap: (){},
+          onTap: (){
+            Navigator.pushNamed(context, ForgetPasswordView.routeName);
+          },
           child: Text('Forget Password',
             style:TextStyles.bold14.copyWith(color: KprimaryColor) ,),
         )
