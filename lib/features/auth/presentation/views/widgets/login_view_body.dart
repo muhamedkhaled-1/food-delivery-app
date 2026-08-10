@@ -25,64 +25,57 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
-            ),
-            child: Column(
-              children: [
-                CustomAppBar(
-                  title: 'Log in',
-                  subtitle: 'Please sign in to your existing account',
-                ),
-                const SizedBox(height: 50),
-                CustomAuthBody(
-                  height: constraints.maxHeight * 0.9,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 24,right: 24,top: 24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Email',
-                        style: TextStyles.bold13,
-                        ),
-                        SizedBox(height: 8,),
-                        CustomTextFormField(
-                          hintText: 'example@gmail.com',
-                          textInputType: TextInputType.emailAddress,
-                        ),
-                        SizedBox(height: 24,),
-                        Text('Password',
-                          style: TextStyles.bold13,
-                        ),
-                        SizedBox(height: 8,),
-                        CustomTextFormField(
-                          hintText: '**********',
-                          textInputType: TextInputType.visiblePassword,
-                          suffixIcon: Icon(Icons.remove_red_eye,color: Color(0xffB4B9CA),),
-                        ),
-                        SizedBox(height: 20,),
-                        CheckBoxRow(),
-                        SizedBox(height: 31,),
-                        CustomButton(onPressed: (){},
-                            text: 'Log In'),
-                        SizedBox(height: 38,),
-                       DontHaveAccountRow(),
-                        SizedBox(height: 27,),
-                        Center(
-                          child: Text('Or',
-                          style: TextStyles.bold16.copyWith(color: Color(0xFF646982)),
-                          ),
-                        ),
-                        SizedBox(height: 15,),
-                        SocialMediaAuth()
-
-                      ],
+          child: Column(
+            children: [
+              CustomAppBar(
+                title: 'Log in',
+                subtitle: 'Please sign in to your existing account',
+              ),
+              const SizedBox(height: 50),
+              CustomAuthBody(
+                // height: MediaQuery.of(context).size.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Email',
+                    style: TextStyles.bold13,
                     ),
-                  ),
-                )
-              ],
-            ),
+                    SizedBox(height: 8,),
+                    CustomTextFormField(
+                      hintText: 'example@gmail.com',
+                      textInputType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(height: 24,),
+                    Text('Password',
+                      style: TextStyles.bold13,
+                    ),
+                    SizedBox(height: 8,),
+                    CustomTextFormField(
+                      hintText: '**********',
+                      textInputType: TextInputType.visiblePassword,
+                      suffixIcon: Icon(Icons.remove_red_eye,color: Color(0xffB4B9CA),),
+                    ),
+                    SizedBox(height: 20,),
+                    CheckBoxRow(),
+                    SizedBox(height: 31,),
+                    CustomButton(onPressed: (){},
+                        text: 'Log In'),
+                    SizedBox(height: 38,),
+                   DontHaveAccountRow(),
+                    SizedBox(height: 27,),
+                    Center(
+                      child: Text('Or',
+                      style: TextStyles.bold16.copyWith(color: Color(0xFF646982)),
+                      ),
+                    ),
+                    SizedBox(height: 15,),
+                    SocialMediaAuth(),
+                    SizedBox(height: 39,)
+
+                  ],
+                ),
+              )
+            ],
           ),
         );
       },
