@@ -8,6 +8,7 @@ import 'package:food_delivery_app/features/auth/presentation/views/widgets/custo
 import 'package:food_delivery_app/features/auth/presentation/views/widgets/custom_auth_body.dart';
 
 import '../../../../../core/utilis/app_text_styles.dart';
+import '../../../../../core/widgets/password_field.dart';
 
 class SignupViewBody extends StatefulWidget {
   const SignupViewBody({super.key});
@@ -17,11 +18,12 @@ class SignupViewBody extends StatefulWidget {
 }
 
 class _SignupViewBodyState extends State<SignupViewBody> {
-  final GlobalKey<FormState> formKey=GlobalKey();
+  final GlobalKey<FormState> formKey = GlobalKey();
 
-  AutovalidateMode autovalidateMode=AutovalidateMode.disabled;
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
-  late String email,password,name;
+  late String email, password, name;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -40,71 +42,78 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 ),
                 CustomAuthBody(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Name',
-                          style: TextStyles.bold13,
-                        ),
-                        SizedBox(height: 8),
-                        CustomTextFormField(
-                          onSaved: (value){
-                            name=value!;
-                          },
-                            hintText: 'John doe',
-                            textInputType: TextInputType.name),
-                        SizedBox(height: 24,),
-                        Text(
-                          'Email',
-                          style: TextStyles.bold13,
-                        ),
-                        SizedBox(height: 8),
-                        CustomTextFormField(
-                          onSaved: (value){
-                            email=value!;
-                          },
-                            hintText: 'example@gmail.com',
-                            textInputType: TextInputType.emailAddress),
-                        SizedBox(height: 24,),
-                        Text(
-                          'Password',
-                          style: TextStyles.bold13,
-                        ),
-                        SizedBox(height: 8),
-                        CustomTextFormField(
-                          onSaved: (value){
-                            password=value!;
-                          },
-                          suffixIcon: Icon(Icons.visibility_off_outlined,
-                            color:Color(0xffA0A5BA) ,),
-                            hintText: '**********',
-                            textInputType: TextInputType.visiblePassword),
-                        SizedBox(height: 24,),
-                        Text(
-                          'Re-Type Password',
-                          style: TextStyles.bold13,
-                        ),
-                        SizedBox(height: 8),
-                        CustomTextFormField(
-                            suffixIcon: Icon(Icons.visibility_off_outlined,
-                              color:Color(0xffA0A5BA) ,),
-                            hintText: '**********',
-                            textInputType: TextInputType.visiblePassword),
-                        SizedBox(height: 47,),
-                        CustomButton(onPressed: (){
-                          if(formKey.currentState!.validate()){
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Name',
+                      style: TextStyles.bold13,
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFormField(
+                        onSaved: (value) {
+                          name = value!;
+                        },
+                        hintText: 'John doe',
+                        textInputType: TextInputType.name),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Text(
+                      'Email',
+                      style: TextStyles.bold13,
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFormField(
+                        onSaved: (value) {
+                          email = value!;
+                        },
+                        hintText: 'example@gmail.com',
+                        textInputType: TextInputType.emailAddress),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Text(
+                      'Password',
+                      style: TextStyles.bold13,
+                    ),
+                    SizedBox(height: 8),
+                    PasswordField(
+                      onSaved: (value) {
+                        password = value!;
+                      },
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Text(
+                      'Re-Type Password',
+                      style: TextStyles.bold13,
+                    ),
+                    SizedBox(height: 8),
+                    PasswordField(),
+                    SizedBox(
+                      height: 47,
+                    ),
+                    CustomButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
-                            context.read<SignupCubit>().createUserWithEmailAndPassword(email, password, name);
-                          }else{
+                            context
+                                .read<SignupCubit>()
+                                .createUserWithEmailAndPassword(
+                                    email, password, name);
+                          } else {
                             setState(() {
-                              autovalidateMode=AutovalidateMode.always;
+                              autovalidateMode = AutovalidateMode.always;
                             });
                           }
                         },
-                            text: 'Sign Up'),
-                        SizedBox(height: 39,)
-                      ],
-                    ))
+                        text: 'Sign Up'),
+                    SizedBox(
+                      height: 39,
+                    )
+                  ],
+                ))
               ],
             ),
           ),
