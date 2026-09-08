@@ -20,4 +20,14 @@ import 'package:food_delivery_app/features/auth/domain/repos/auth_repo.dart';
     }
   }
 
+  @override
+  Future<Either<Failures, UserEntity>> signInWithEmailAndPassword(String email, String password,) async{
+    try {
+      var user=await firebaseAuthServices.signInWithEmailAndPassword(email: email, password: password);
+      return right(UserModel.fromFirebaseUser(user));
+    } on Exception catch (e) {
+      return left(ServerFailure(message: 'There an error, try again later'));
+    }
+  }
+
 }

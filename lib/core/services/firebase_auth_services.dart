@@ -23,4 +23,25 @@ class FirebaseAuthServices {
       throw CustomException(message: 'There an error, try again later');
     }
   }
+  Future<User> signInWithEmailAndPassword({required String email,required String password})async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password
+      );
+      return credential.user!;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw CustomException(message: 'No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        throw CustomException(
+            message: 'Wrong password provided for that user.');
+      }else{
+        throw CustomException(message: 'There an error, try again later');
+      }
+    }
+    catch (e) {
+      throw CustomException(message: 'There an error, try again later');
+    }
+  }
 }
