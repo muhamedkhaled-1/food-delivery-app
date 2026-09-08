@@ -5,29 +5,65 @@ import 'package:food_delivery_app/features/auth/data/models/user_model.dart';
 import 'package:food_delivery_app/features/auth/domain/entities/user_entity.dart';
 import 'package:food_delivery_app/features/auth/domain/repos/auth_repo.dart';
 
- class AuthRepoImpl extends AuthRepo{
-   final FirebaseAuthServices firebaseAuthServices;
+import '../../../../core/errors/exception.dart';
 
-  AuthRepoImpl({required this.firebaseAuthServices});
+class AuthRepoImpl extends AuthRepo {
+  final FirebaseAuthServices firebaseAuthServices;
+
+  AuthRepoImpl({
+    required this.firebaseAuthServices,
+  });
 
   @override
-  Future<Either<Failures, UserEntity>> createUserWithEmailAndPassword(String email, String password,String name)async {
+  Future<Either<Failures, UserEntity>> createUserWithEmailAndPassword(
+      String email,
+      String password,
+      String name,
+      ) async {
     try {
-      var user=await firebaseAuthServices.createUserWithEmailAndPassword(email: email, password: password);
+      final user =
+      await firebaseAuthServices.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
       return right(UserModel.fromFirebaseUser(user));
-    } on Exception catch (e) {
-      return left(ServerFailure(message: 'There an error, try again later'));
+    } on CustomException catch (e) {
+      return left(
+        ServerFailure(message: e.message),
+      );
+    } catch (e) {
+      return left(
+        ServerFailure(
+          message: 'There was an error, please try again later.',
+        ),
+      );
     }
   }
 
   @override
-  Future<Either<Failures, UserEntity>> signInWithEmailAndPassword(String email, String password,) async{
+  Future<Either<Failures, UserEntity>> signInWithEmailAndPassword(
+      String email,
+      String password,
+      ) async {
     try {
-      var user=await firebaseAuthServices.signInWithEmailAndPassword(email: email, password: password);
+      final user =
+      await firebaseAuthServices.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
       return right(UserModel.fromFirebaseUser(user));
-    } on Exception catch (e) {
-      return left(ServerFailure(message: 'There an error, try again later'));
+    } on CustomException catch (e) {
+      return left(
+        ServerFailure(message: e.message),
+      );
+    } catch (e) {
+      return left(
+        ServerFailure(
+          message: 'There was an error, please try again later.',
+        ),
+      );
     }
   }
-
 }
