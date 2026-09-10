@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:food_delivery_app/core/errors/failures.dart';
 import 'package:food_delivery_app/core/services/firebase_auth_services.dart';
@@ -16,13 +18,12 @@ class AuthRepoImpl extends AuthRepo {
 
   @override
   Future<Either<Failures, UserEntity>> createUserWithEmailAndPassword(
-      String email,
-      String password,
-      String name,
-      ) async {
+    String email,
+    String password,
+    String name,
+  ) async {
     try {
-      final user =
-      await firebaseAuthServices.createUserWithEmailAndPassword(
+      final user = await firebaseAuthServices.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -43,12 +44,11 @@ class AuthRepoImpl extends AuthRepo {
 
   @override
   Future<Either<Failures, UserEntity>> signInWithEmailAndPassword(
-      String email,
-      String password,
-      ) async {
+    String email,
+    String password,
+  ) async {
     try {
-      final user =
-      await firebaseAuthServices.signInWithEmailAndPassword(
+      final user = await firebaseAuthServices.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -64,6 +64,28 @@ class AuthRepoImpl extends AuthRepo {
           message: 'There was an error, please try again later.',
         ),
       );
+    }
+  }
+
+  @override
+  Future<Either<Failures, UserEntity>> signInWithGoogle() async {
+    try {
+      var user = await firebaseAuthServices.signInWithGoogle();
+      return right(UserModel.fromFirebaseUser(user));
+    } catch (e) {
+      log('Exception in sign in with google:: ${e.toString()}');
+      return left(ServerFailure(message: 'Theres a problem try again later'));
+    }
+  }
+
+  @override
+  Future<Either<Failures, UserEntity>> signInWithFacebook() async {
+    try {
+      var user = await firebaseAuthServices.signInWithGoogle();
+      return right(UserModel.fromFirebaseUser(user));
+    } catch (e) {
+      log('Exception in sign in with google:: ${e.toString()}');
+      return left(ServerFailure(message: 'Theres a problem try again later'));
     }
   }
 }
