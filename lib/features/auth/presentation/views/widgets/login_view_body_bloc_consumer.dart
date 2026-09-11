@@ -15,15 +15,16 @@ class LoginViewBodyBlocConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SigninCubit, SigninState>(
       listener: (context, state) {
-        if(state is SigninSuccess){}
-        if(state is SigninFailure){
+        if (state is SigninSuccess) {}
+
+        if (state is SigninFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message)));
         }
       },
       builder: (context, state) {
         return ModalProgressHUD(
-            inAsyncCall: state is SigninLoading?true:false,
+            inAsyncCall: state is SigninLoading ? true : false,
             child: LoginViewBody());
       },
     );

@@ -3,6 +3,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:food_delivery_app/core/errors/exception.dart';
 import 'package:food_delivery_app/features/auth/domain/entities/user_entity.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 
 class FirebaseAuthServices {
   Future<User> createUserWithEmailAndPassword(
@@ -78,11 +79,36 @@ class FirebaseAuthServices {
     return (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
   }
 
-  Future<User> signInWithFacebook() async {
-    final LoginResult loginResult = await FacebookAuth.instance.login();
-
-    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
-
-    return (await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential)).user!;
+  Future<void> requestTrackingPermission() async {
+    final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+    if (status == TrackingStatus.notDetermined) {
+      await AppTrackingTransparency.requestTrackingAuthorization();
+    }
   }
+  Future<User> signInWithFacebook() async {
+    final LoginResult loginResult = await FacebookAuth.instance.login(
+      loginTracking: LoginTracking.enabled,
+      permissions: ['email', 'public_profile'],
+    );
+
+    if (loginResult.status != LoginStatus.success) {
+      throw Exception('Facebook login failed: ${loginResult.status} - ${loginResult.message}');
+    }
+
+    final AccessToken accessToken = loginResult.accessToken as AccessToken;
+    final OAuthCredential facebookAuthCredential =
+    FacebookAuthProvider.credential(accessToken.tokenString);
+
+    try {
+      return (await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential)).user!;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        throw CustomException(
+          message: 'An account already exists with this email using a different sign-in method (Google or email/password). Please sign in that way instead.',
+        );
+      }
+      rethrow;
+    }
+  }
+
 }

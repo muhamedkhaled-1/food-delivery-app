@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:food_delivery_app/core/errors/failures.dart';
 import 'package:food_delivery_app/core/services/firebase_auth_services.dart';
 import 'package:food_delivery_app/features/auth/data/models/user_model.dart';
@@ -81,11 +83,23 @@ class AuthRepoImpl extends AuthRepo {
   @override
   Future<Either<Failures, UserEntity>> signInWithFacebook() async {
     try {
-      var user = await firebaseAuthServices.signInWithGoogle();
+      await firebaseAuthServices.requestTrackingPermission();
+      var user = await firebaseAuthServices.signInWithFacebook();
       return right(UserModel.fromFirebaseUser(user));
-    } catch (e) {
-      log('Exception in sign in with google:: ${e.toString()}');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        final pendingCredential = FacebookAuthProvider.credential(
+          (await FacebookAuth.instance.accessToken)!.tokenString,
+        );
+        return left(AccountLinkingFailure(
+          email: e.email!,
+          pendingCredential: pendingCredential,
+        ));
+      }
       return left(ServerFailure(message: 'Theres a problem try again later'));
+    } catch (e) {
+      log('Exception in sign in with facebook:: ${e.toString()}');
+      return left(ServerFailure(message: 'An account already exists with this email using a different sign-in method (Google or email/password). Please sign in that way instead.'));
     }
   }
 }

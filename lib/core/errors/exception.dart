@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class CustomException implements Exception{
   final String message;
 
@@ -8,4 +10,5 @@ class CustomException implements Exception{
     // TODO: implement toString
     return message;
   }
+
 }

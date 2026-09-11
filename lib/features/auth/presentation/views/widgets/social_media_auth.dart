@@ -39,9 +39,15 @@ class _SocialMediaAuthState extends State<SocialMediaAuth> {
         SizedBox(
           width: iconSize,
           height: iconSize,
-          child: SvgPicture.asset(
-            Assets.facebook,
-            fit: BoxFit.contain,
+          child: GestureDetector(
+            onTap: (){
+
+              context.read<SigninCubit>().signInWithFacebook();
+            },
+            child: SvgPicture.asset(
+              Assets.facebook,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
 

@@ -5,6 +5,7 @@
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
+
   'Debug' => :debug,
   'Profile' => :release,
   'Release' => :release,
@@ -30,6 +31,12 @@ flutter_ios_podfile_setup
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
+
+  pod 'FBSDKCoreKit', '18.0.0'
+  pod 'FBSDKLoginKit', '18.0.0'
+  pod 'FBSDKCoreKit_Basics', '18.0.0'
+  pod 'FBAEMKit', '18.0.0'
+
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do

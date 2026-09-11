@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-
 <plist version="1.0">
 <dict>
-<key>GIDClientID</key>
-<string>181907846295-cdep3pnv683iedkvlb1djg87jcecttt3.apps.googleusercontent.com</string>
+    <key>GIDClientID</key>
+    <string>181907846295-cdep3pnv683iedkvlb1djg87jcecttt3.apps.googleusercontent.com</string>
+
     <key>CFBundleURLTypes</key>
     <array>
         <dict>
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
-
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>com.googleusercontent.apps.181907846295-cdep3pnv683iedkvlb1djg87jcecttt3</string>
+            </array>
+        </dict>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb1511351220064072</string>
             </array>
         </dict>
     </array>
@@ -78,5 +83,22 @@
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
 
+    <key>FacebookAppID</key>
+    <string>1511351220064072</string>
+
+    <key>FacebookClientToken</key>
+    <string>4ba46794b8d16b01370423ddbc7992e6</string>
+
+    <key>FacebookDisplayName</key>
+    <string>Food Delivery App</string>
+
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fbauth2</string>
+        <string>fb-messenger-share-api</string>
+    </array>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>This identifier will be used to deliver personalized ads and improve your experience.</string>
 </dict>
 </plist>

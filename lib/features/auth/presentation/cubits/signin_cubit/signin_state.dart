@@ -15,5 +15,10 @@ final class SigninFailure extends SigninState {
 
   SigninFailure({required this.message});
 }
+class SigninRequiresLinking extends SigninState {
+  final String email;
+  final OAuthCredential pendingCredential;
 
+  SigninRequiresLinking({required this.email, required this.pendingCredential});
+}
 
