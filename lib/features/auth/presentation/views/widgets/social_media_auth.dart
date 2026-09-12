@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,8 +42,7 @@ class _SocialMediaAuthState extends State<SocialMediaAuth> {
           width: iconSize,
           height: iconSize,
           child: GestureDetector(
-            onTap: (){
-
+            onTap: () {
               context.read<SigninCubit>().signInWithFacebook();
             },
             child: SvgPicture.asset(
@@ -51,20 +52,20 @@ class _SocialMediaAuthState extends State<SocialMediaAuth> {
           ),
         ),
 
-        GestureDetector(
-          onTap: () {
-            context.read<SigninCubit>().signInWithApple();
-          },
-          child: SizedBox(
+        if (Platform.isIOS)
+          SizedBox(
             width: iconSize,
             height: iconSize,
-            child: SvgPicture.asset(
-              Assets.apple,
-              fit: BoxFit.contain,
+            child: GestureDetector(
+              onTap: () {
+                context.read<SigninCubit>().signInWithApple();
+              },
+              child: SvgPicture.asset(
+                Assets.apple,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
-        ),
-
       ],
     );
   }
