@@ -6,11 +6,37 @@ allprojects {
 }
 
 rootProject.buildDir = "../build"
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
+}
+
+/*
+ * Make Java and Kotlin use the same JVM target.
+ * This also applies to Flutter plugins such as flutter_facebook_auth.
+ */
+subprojects {
+    if (project.path != ":app") {
+        afterEvaluate { proj ->
+            if (proj.hasProperty("android")) {
+                proj.android {
+                    compileOptions {
+                        sourceCompatibility = JavaVersion.VERSION_17
+                        targetCompatibility = JavaVersion.VERSION_17
+                    }
+                }
+            }
+            proj.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                kotlinOptions {
+                    jvmTarget = "17"
+                }
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete) {
