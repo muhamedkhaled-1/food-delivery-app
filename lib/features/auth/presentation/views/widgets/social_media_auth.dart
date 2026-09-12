@@ -51,23 +51,20 @@ class _SocialMediaAuthState extends State<SocialMediaAuth> {
           ),
         ),
 
-        SizedBox(
-          width: iconSize,
-          height: iconSize,
-          child: SvgPicture.asset(
-            Assets.apple,
-            fit: BoxFit.contain,
+        GestureDetector(
+          onTap: () {
+            context.read<SigninCubit>().signInWithApple();
+          },
+          child: SizedBox(
+            width: iconSize,
+            height: iconSize,
+            child: SvgPicture.asset(
+              Assets.apple,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
 
-        SizedBox(
-          width: iconSize,
-          height: iconSize,
-          child: SvgPicture.asset(
-            Assets.twitter,
-            fit: BoxFit.contain,
-          ),
-        ),
       ],
     );
   }

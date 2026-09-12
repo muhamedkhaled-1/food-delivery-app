@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:food_delivery_app/core/errors/exception.dart';
 import 'package:food_delivery_app/features/auth/domain/entities/user_entity.dart';
@@ -110,5 +113,26 @@ class FirebaseAuthServices {
       rethrow;
     }
   }
-
-}
+  Future<User> signInWithApple() async {
+    final appleProvider = AppleAuthProvider();
+    try {
+      late final UserCredential userCredential;
+      if (kIsWeb) {
+        userCredential = await FirebaseAuth.instance.signInWithPopup(appleProvider);
+      } else {
+        userCredential = await FirebaseAuth.instance.signInWithProvider(appleProvider);
+      }
+      return userCredential.user!;
+    } on FirebaseAuthException catch (e) {
+      log('Apple sign-in FirebaseAuthException:: code=${e.code}, message=${e.message}');
+      if (e.code == 'account-exists-with-different-credential') {
+        throw CustomException(
+          message: 'This email is already registered with another sign-in method. Please sign in that way instead.',
+        );
+      }
+      throw CustomException(message: 'There was an error, please try again later.');
+    } catch (e) {
+      log('Apple sign-in unknown error:: ${e.toString()}');
+      rethrow;
+    }
+  }}

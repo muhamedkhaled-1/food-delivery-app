@@ -102,4 +102,17 @@ class AuthRepoImpl extends AuthRepo {
       return left(ServerFailure(message: 'An account already exists with this email using a different sign-in method (Google or email/password). Please sign in that way instead.'));
     }
   }
-}
+  @override
+  @override
+  Future<Either<Failures, UserEntity>> signInWithApple() async {
+    try {
+      var user = await firebaseAuthServices.signInWithApple();
+      return right(UserModel.fromFirebaseUser(user));
+    } on CustomException catch (e) {
+      log('Exception in sign in with apple:: ${e.message}');
+      return left(ServerFailure(message: e.message));
+    } catch (e) {
+      log('Exception in sign in with apple:: ${e.toString()}');
+      return left(ServerFailure(message: 'Theres a problem try again later'));
+    }
+  }}
