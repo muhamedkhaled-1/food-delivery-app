@@ -26,99 +26,72 @@ class _SignupViewBodyState extends State<SignupViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            autovalidateMode: autovalidateMode,
-            child: Column(
-              children: [
-                CustomAppBar(
-                    title: 'Sign Up',
-                    subtitle: 'Please sign up to get started'),
-                SizedBox(
-                  height: 49,
-                ),
-                CustomAuthBody(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Name',
-                      style: TextStyles.bold13,
-                    ),
-                    SizedBox(height: 8),
-                    CustomTextFormField(
-                        onSaved: (value) {
-                          name = value!;
-                        },
-                        hintText: 'John doe',
-                        textInputType: TextInputType.name),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      'Email',
-                      style: TextStyles.bold13,
-                    ),
-                    SizedBox(height: 8),
-                    CustomTextFormField(
-                        onSaved: (value) {
-                          email = value!;
-                        },
-                        hintText: 'example@gmail.com',
-                        textInputType: TextInputType.emailAddress),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      'Password',
-                      style: TextStyles.bold13,
-                    ),
-                    SizedBox(height: 8),
-                    PasswordField(
+    return Form(
+      key: formKey,
+      autovalidateMode: autovalidateMode,
+      child: Column(
+        children: [
+          CustomAppBar(
+              title: 'Sign Up',
+              subtitle: 'Please sign up to get started'),
+          const SizedBox(height: 49),
+          Expanded(
+            child: CustomAuthBody(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Name', style: TextStyles.bold13),
+                  const SizedBox(height: 8),
+                  CustomTextFormField(
                       onSaved: (value) {
-                        password = value!;
+                        name = value!;
                       },
-                    ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      'Re-Type Password',
-                      style: TextStyles.bold13,
-                    ),
-                    SizedBox(height: 8),
-                    PasswordField(),
-                    SizedBox(
-                      height: 47,
-                    ),
-                    CustomButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            context
-                                .read<SignupCubit>()
-                                .createUserWithEmailAndPassword(
-                                    email, password, name);
-                          } else {
-                            setState(() {
-                              autovalidateMode = AutovalidateMode.always;
-                            });
-                          }
-                        },
-                        text: 'Sign Up'),
-                    SizedBox(
-                      height: 39,
-                    )
-                  ],
-                ))
-              ],
+                      hintText: 'John doe',
+                      textInputType: TextInputType.name),
+                  const SizedBox(height: 24),
+                  Text('Email', style: TextStyles.bold13),
+                  const SizedBox(height: 8),
+                  CustomTextFormField(
+                      onSaved: (value) {
+                        email = value!;
+                      },
+                      hintText: 'example@gmail.com',
+                      textInputType: TextInputType.emailAddress),
+                  const SizedBox(height: 24),
+                  Text('Password', style: TextStyles.bold13),
+                  const SizedBox(height: 8),
+                  PasswordField(
+                    onSaved: (value) {
+                      password = value!;
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  Text('Re-Type Password', style: TextStyles.bold13),
+                  const SizedBox(height: 8),
+                  PasswordField(),
+                  const SizedBox(height: 47),
+                  CustomButton(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+                          context
+                              .read<SignupCubit>()
+                              .createUserWithEmailAndPassword(
+                              email, password, name);
+                        } else {
+                          setState(() {
+                            autovalidateMode = AutovalidateMode.always;
+                          });
+                        }
+                      },
+                      text: 'Sign Up'),
+                  const SizedBox(height: 39),
+                ],
+              ),
             ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

@@ -26,81 +26,73 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 late String email,password;
 final GlobalKey<FormState> formKey=GlobalKey<FormState>();
   @override
+  @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            autovalidateMode: autovalidateMode,
-            child: Column(
-              children: [
-                CustomAppBar(
-                  title: 'Log in',
-                  subtitle: 'Please sign in to your existing account',
-                ),
-                const SizedBox(height: 50),
-                CustomAuthBody(
-                  // height: MediaQuery.of(context).size.height,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Email',
-                      style: TextStyles.bold13,
-                      ),
-                      SizedBox(height: 8,),
-                      CustomTextFormField(
-                        onSaved: (value){
-                          email=value!;
-                        },
-                        hintText: 'example@gmail.com',
-                        textInputType: TextInputType.emailAddress,
-                      ),
-                      SizedBox(height: 24,),
-                      Text('Password',
-                        style: TextStyles.bold13,
-                      ),
-                      SizedBox(height: 8,),
-                     PasswordField(
-                       onSaved: (value){
-                         password=value!;
-                       },
-                     ),
-                      SizedBox(height: 20,),
-                      CheckBoxRow(),
-                      SizedBox(height: 31,),
-                      CustomButton(onPressed: (){
-                        if(formKey.currentState!.validate()){
-                          formKey.currentState!.save();
-                          context.read<SigninCubit>().SingnUser(email, password);
-                        }else{
-                          autovalidateMode= AutovalidateMode.always;
-                          setState(() {
-
-                          });
-                        }
-                      },
-                          text: 'Log In'),
-                      SizedBox(height: 38,),
-                     DontHaveAccountRow(),
-                      SizedBox(height: 27,),
-                      Center(
-                        child: Text('Or',
-                        style: TextStyles.bold16.copyWith(color: Color(0xFF646982)),
-                        ),
-                      ),
-                      SizedBox(height: 15,),
-                      SocialMediaAuth(),
-                      SizedBox(height: 39,)
-
-                    ],
+    return Form(
+      key: formKey,
+      autovalidateMode: autovalidateMode,
+      child: Column(
+        children: [
+          CustomAppBar(
+            title: 'Log in',
+            subtitle: 'Please sign in to your existing account',
+          ),
+          const SizedBox(height: 50),
+          Expanded(
+            child: CustomAuthBody(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Email', style: TextStyles.bold13),
+                  const SizedBox(height: 8),
+                  CustomTextFormField(
+                    onSaved: (value) {
+                      email = value!;
+                    },
+                    hintText: 'example@gmail.com',
+                    textInputType: TextInputType.emailAddress,
                   ),
-                )
-              ],
+                  const SizedBox(height: 24),
+                  Text('Password', style: TextStyles.bold13),
+                  const SizedBox(height: 8),
+                  PasswordField(
+                    onSaved: (value) {
+                      password = value!;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  CheckBoxRow(),
+                  const SizedBox(height: 31),
+                  CustomButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        context.read<SigninCubit>().SingnUser(email, password);
+                      } else {
+                        autovalidateMode = AutovalidateMode.always;
+                        setState(() {});
+                      }
+                    },
+                    text: 'Log In',
+                  ),
+                  const SizedBox(height: 38),
+                  DontHaveAccountRow(),
+                  const SizedBox(height: 27),
+                  Center(
+                    child: Text(
+                      'Or',
+                      style: TextStyles.bold16.copyWith(color: const Color(0xFF646982)),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  SocialMediaAuth(),
+                  const SizedBox(height: 39),
+                ],
+              ),
             ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
