@@ -38,21 +38,23 @@ class AuthRepoImpl extends AuthRepo {
       await addUserData(user: userEntity);
       return right(userEntity);
     } on CustomException catch (e) {
-      if (user != null) {
-        await firebaseAuthServices.deleteUser();
-      }
+      await deleteUser(user);
       return left(
         ServerFailure(message: e.message),
       );
     } catch (e) {
-      if (user != null) {
-        await firebaseAuthServices.deleteUser();
-      }
+      await deleteUser(user);
       return left(
         ServerFailure(
           message: 'There was an error, please try again later.',
         ),
       );
+    }
+  }
+
+  Future<void> deleteUser(User? user) async {
+    if (user != null) {
+      await firebaseAuthServices.deleteUser();
     }
   }
 
@@ -83,10 +85,14 @@ class AuthRepoImpl extends AuthRepo {
 
   @override
   Future<Either<Failures, UserEntity>> signInWithGoogle() async {
+    User ?user;
     try {
-      var user = await firebaseAuthServices.signInWithGoogle();
-      return right(UserModel.fromFirebaseUser(user));
+       user = await firebaseAuthServices.signInWithGoogle();
+       var userEntity=UserModel.fromFirebaseUser(user);
+       await addUserData(user: userEntity);
+      return right(userEntity);
     } catch (e) {
+      await deleteUser(user);
       log('Exception in sign in with google:: ${e.toString()}');
       return left(ServerFailure(message: 'Theres a problem try again later'));
     }
@@ -94,11 +100,15 @@ class AuthRepoImpl extends AuthRepo {
 
   @override
   Future<Either<Failures, UserEntity>> signInWithFacebook() async {
+    User ?user;
     try {
       await firebaseAuthServices.requestTrackingPermission();
-      var user = await firebaseAuthServices.signInWithFacebook();
-      return right(UserModel.fromFirebaseUser(user));
+       user = await firebaseAuthServices.signInWithFacebook();
+      var userEntity=UserModel.fromFirebaseUser(user);
+      await addUserData(user: userEntity);
+      return Right(userEntity);
     } on FirebaseAuthException catch (e) {
+      await deleteUser(user);
       if (e.code == 'account-exists-with-different-credential') {
         final pendingCredential = FacebookAuthProvider.credential(
           (await FacebookAuth.instance.accessToken)!.tokenString,
@@ -110,6 +120,7 @@ class AuthRepoImpl extends AuthRepo {
       }
       return left(ServerFailure(message: 'Theres a problem try again later'));
     } catch (e) {
+      await deleteUser(user);
       log('Exception in sign in with facebook:: ${e.toString()}');
       return left(ServerFailure(
           message:
@@ -120,13 +131,18 @@ class AuthRepoImpl extends AuthRepo {
   @override
   @override
   Future<Either<Failures, UserEntity>> signInWithApple() async {
+    User?user;
     try {
-      var user = await firebaseAuthServices.signInWithApple();
-      return right(UserModel.fromFirebaseUser(user));
+       user = await firebaseAuthServices.signInWithApple();
+      var userEntity=UserModel.fromFirebaseUser(user);
+      await addUserData(user: userEntity);
+      return Right(userEntity);
     } on CustomException catch (e) {
+      await deleteUser(user);
       log('Exception in sign in with apple:: ${e.message}');
       return left(ServerFailure(message: e.message));
     } catch (e) {
+      await deleteUser(user);
       log('Exception in sign in with apple:: ${e.toString()}');
       return left(ServerFailure(message: 'Theres a problem try again later'));
     }
