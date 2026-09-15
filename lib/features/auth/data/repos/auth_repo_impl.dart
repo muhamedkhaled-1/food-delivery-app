@@ -4,7 +4,9 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:food_delivery_app/core/errors/failures.dart';
+import 'package:food_delivery_app/core/services/database_service.dart';
 import 'package:food_delivery_app/core/services/firebase_auth_services.dart';
+import 'package:food_delivery_app/core/utilis/backend_endpoint.dart';
 import 'package:food_delivery_app/features/auth/data/models/user_model.dart';
 import 'package:food_delivery_app/features/auth/domain/entities/user_entity.dart';
 import 'package:food_delivery_app/features/auth/domain/repos/auth_repo.dart';
@@ -13,9 +15,11 @@ import '../../../../core/errors/exception.dart';
 
 class AuthRepoImpl extends AuthRepo {
   final FirebaseAuthServices firebaseAuthServices;
+  final DatabaseService databaseService;
 
   AuthRepoImpl({
     required this.firebaseAuthServices,
+    required this.databaseService,
   });
 
   @override
@@ -24,18 +28,26 @@ class AuthRepoImpl extends AuthRepo {
     String password,
     String name,
   ) async {
+    User? user;
     try {
-      final user = await firebaseAuthServices.createUserWithEmailAndPassword(
+      user = await firebaseAuthServices.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-      return right(UserModel.fromFirebaseUser(user));
+      var userEntity = UserEntity(name: name, email: email, uId: user.uid);
+      await addUserData(user: userEntity);
+      return right(userEntity);
     } on CustomException catch (e) {
+      if (user != null) {
+        await firebaseAuthServices.deleteUser();
+      }
       return left(
         ServerFailure(message: e.message),
       );
     } catch (e) {
+      if (user != null) {
+        await firebaseAuthServices.deleteUser();
+      }
       return left(
         ServerFailure(
           message: 'There was an error, please try again later.',
@@ -99,9 +111,12 @@ class AuthRepoImpl extends AuthRepo {
       return left(ServerFailure(message: 'Theres a problem try again later'));
     } catch (e) {
       log('Exception in sign in with facebook:: ${e.toString()}');
-      return left(ServerFailure(message: 'An account already exists with this email using a different sign-in method (Google or email/password). Please sign in that way instead.'));
+      return left(ServerFailure(
+          message:
+              'An account already exists with this email using a different sign-in method (Google or email/password). Please sign in that way instead.'));
     }
   }
+
   @override
   @override
   Future<Either<Failures, UserEntity>> signInWithApple() async {
@@ -115,4 +130,11 @@ class AuthRepoImpl extends AuthRepo {
       log('Exception in sign in with apple:: ${e.toString()}');
       return left(ServerFailure(message: 'Theres a problem try again later'));
     }
-  }}
+  }
+
+  @override
+  Future<dynamic> addUserData({required UserEntity user}) async {
+    await databaseService.addData(
+        path: BackendEndpoint.addUserData, data: user.toMap());
+  }
+}

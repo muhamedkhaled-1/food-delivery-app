@@ -31,7 +31,9 @@ class FirebaseAuthServices {
       throw CustomException(message: 'There an error, try again later');
     }
   }
-
+  Future deleteUser()async{
+    await FirebaseAuth.instance.currentUser!.delete();
+  }
   Future<User> signInWithEmailAndPassword({
     required String email,
     required String password,
