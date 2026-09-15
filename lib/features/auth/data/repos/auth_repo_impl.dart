@@ -68,8 +68,8 @@ class AuthRepoImpl extends AuthRepo {
         email: email,
         password: password,
       );
-
-      return right(UserModel.fromFirebaseUser(user));
+      var userEntity= await getUserData(uid: user.uid);
+      return right(userEntity);
     } on CustomException catch (e) {
       return left(
         ServerFailure(message: e.message),
@@ -89,7 +89,12 @@ class AuthRepoImpl extends AuthRepo {
     try {
        user = await firebaseAuthServices.signInWithGoogle();
        var userEntity=UserModel.fromFirebaseUser(user);
-       await addUserData(user: userEntity);
+       var isUserExist=await databaseService.checkIfDataExists(path: BackendEndpoint.isUserExist, docId: user.uid);
+       if (isUserExist) {
+         await getUserData(uid: user.uid);
+       }else{
+         await addUserData(user: userEntity);
+       }
       return right(userEntity);
     } catch (e) {
       await deleteUser(user);
@@ -105,7 +110,12 @@ class AuthRepoImpl extends AuthRepo {
       await firebaseAuthServices.requestTrackingPermission();
        user = await firebaseAuthServices.signInWithFacebook();
       var userEntity=UserModel.fromFirebaseUser(user);
-      await addUserData(user: userEntity);
+      var isUserExist=await databaseService.checkIfDataExists(path: BackendEndpoint.isUserExist, docId: user.uid);
+      if (isUserExist) {
+        await getUserData(uid: user.uid);
+      }else{
+        await addUserData(user: userEntity);
+      }
       return Right(userEntity);
     } on FirebaseAuthException catch (e) {
       await deleteUser(user);
@@ -135,7 +145,12 @@ class AuthRepoImpl extends AuthRepo {
     try {
        user = await firebaseAuthServices.signInWithApple();
       var userEntity=UserModel.fromFirebaseUser(user);
-      await addUserData(user: userEntity);
+       var isUserExist=await databaseService.checkIfDataExists(path: BackendEndpoint.isUserExist, docId: user.uid);
+       if (isUserExist) {
+         await getUserData(uid: user.uid);
+       }else{
+         await addUserData(user: userEntity);
+       }
       return Right(userEntity);
     } on CustomException catch (e) {
       await deleteUser(user);
@@ -151,6 +166,13 @@ class AuthRepoImpl extends AuthRepo {
   @override
   Future<dynamic> addUserData({required UserEntity user}) async {
     await databaseService.addData(
-        path: BackendEndpoint.addUserData, data: user.toMap());
+        path: BackendEndpoint.addUserData, data: user.toMap(),docId: user.uId);
+
+  }
+
+  @override
+  Future<UserEntity> getUserData({required String uid}) async{
+    var userData=await databaseService.getData(path: BackendEndpoint.getUserData, docId: uid);
+    return UserModel.fromJson(userData);
   }
 }
