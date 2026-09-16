@@ -12,6 +12,9 @@ abstract final class Assets {
   static const String twitter = 'assets/twitter.svg';
   static const String apple = 'assets/apple.svg';
   static const String google = 'assets/google.svg';
+  static const String location = 'assets/Location Access.png';
+  static const String menu = 'assets/Menu.svg';
+
 
 
 
