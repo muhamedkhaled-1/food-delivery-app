@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/core/widgets/custom_button.dart';
 
 import '../../../../../core/utilis/app_text_styles.dart';
 import '../../../../../core/utilis/assets.dart';
+import '../../cubit/location_cubit.dart';
 
 class LocationViewBody extends StatelessWidget {
   const LocationViewBody({super.key});
@@ -15,7 +17,11 @@ class LocationViewBody extends StatelessWidget {
         children: [
           Image.asset(Assets.location),
           SizedBox(height: 93.5,),
-          CustomButton(onPressed: (){}, text: 'ACCESS LOCATION'),
+          CustomButton(onPressed: (){
+            context.read<LocationCubit>().accessLocation();
+
+          },
+              text: 'ACCESS LOCATION'),
           SizedBox(height: 36.5,),
           Text('DFOOD WILL ACCESS YOUR LOCATION \n'
               'ONLY WHILE USING THE APP',

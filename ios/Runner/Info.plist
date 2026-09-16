@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>DFOOD needs your location to provide nearby restaurants and delivery services.</string>
     <key>GIDClientID</key>
     <string>181907846295-cdep3pnv683iedkvlb1djg87jcecttt3.apps.googleusercontent.com</string>
 
