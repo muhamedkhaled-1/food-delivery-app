@@ -25,11 +25,13 @@ class CustomHomeAppBar extends StatelessWidget {
         }
 
         return ListTile(
+          contentPadding: EdgeInsets.zero,
           leading: IconButton(
             onPressed: () {},
-            icon: SvgPicture.asset(Assets.menu),
+            icon: SvgPicture.asset(Assets.menu,),
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
+
           ),
 
           title: Text(
