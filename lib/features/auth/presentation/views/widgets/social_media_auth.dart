@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_delivery_app/features/auth/presentation/cubits/signin_cubit/signin_cubit.dart';
 
-import '../../../../../core/utilis/assets/assets.dart';
+import '../../../../../core/utilis/assets.dart';
 
 class SocialMediaAuth extends StatefulWidget {
   const SocialMediaAuth({super.key});

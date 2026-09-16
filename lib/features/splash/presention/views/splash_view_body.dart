@@ -5,7 +5,7 @@ import 'package:food_delivery_app/core/services/shared_preferences/shared_prefer
 import 'package:food_delivery_app/features/auth/presentation/views/login_view.dart';
 import 'package:food_delivery_app/features/on_boarding/presentation/views/on_boarding_view.dart';
 
-import '../../../../core/utilis/assets/assets.dart';
+import '../../../../core/utilis/assets.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});

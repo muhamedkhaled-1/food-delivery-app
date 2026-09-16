@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/features/home/presentation/views/home_view.dart';
 import 'package:food_delivery_app/features/location/presentation/views/widgets/location_view_body.dart';
 
 import '../../cubit/location_cubit.dart';
@@ -15,7 +16,7 @@ class LocationViewBodyBlocConsumer extends StatelessWidget {
         if (state is LocationSuccess) {
           print('Latitude: ${state.latitude}');
           print('Longitude: ${state.longitude}');
-
+          Navigator.pushNamed(context, HomeView.routeName);
           // Navigate to the next screen here
         }
 

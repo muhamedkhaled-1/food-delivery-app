@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:food_delivery_app/core/utilis/assets/assets.dart';
+import 'package:food_delivery_app/core/utilis/assets.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem({super.key, required this.image, required this.title, required this.subtitle});

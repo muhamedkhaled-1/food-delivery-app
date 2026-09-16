@@ -9,10 +9,13 @@ class LocationLoading extends LocationState {}
 class LocationSuccess extends LocationState {
   final double latitude;
   final double longitude;
+  final String locationName;
+
 
   LocationSuccess({
     required this.latitude,
-    required this.longitude,
+    required this.longitude, required this.locationName,
+
   });
 }
 

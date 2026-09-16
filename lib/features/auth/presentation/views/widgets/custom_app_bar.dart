@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../../core/utilis/assets/assets.dart';
+import '../../../../../core/utilis/assets.dart';
 
 class CustomAppBar extends StatelessWidget {
    CustomAppBar({super.key, required this.title, required this.subtitle});

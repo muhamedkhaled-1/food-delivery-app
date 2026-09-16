@@ -7,7 +7,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import 'core/helper_function/on_genrate_route.dart';
 import 'core/services/get_it_services.dart';
+import 'core/services/location_service.dart';
 import 'core/services/shared_preferences/shared_preferences_singleton.dart';
+import 'features/location/presentation/cubit/location_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -23,6 +25,14 @@ void main() async{
   );
   await Prefs.init();
   setupGetit();
+  debugPrint(
+    'LocationService registered: ${getIt.isRegistered<LocationService>()}',
+  );
+
+  debugPrint(
+    'LocationCubit registered: ${getIt.isRegistered<LocationCubit>()}',
+  );
+
   runApp( FoodDeliveryApp());
 }
 

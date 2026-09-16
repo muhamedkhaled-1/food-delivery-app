@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:food_delivery_app/features/on_boarding/presentation/views/widgets/page_view_item.dart';
 
-import '../../../../../core/utilis/assets/assets.dart';
+import '../../../../../core/utilis/assets.dart';
 
 class OnBoardingPageView extends StatelessWidget {
   const OnBoardingPageView({super.key, required this.pageController});

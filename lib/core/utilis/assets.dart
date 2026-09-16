@@ -14,6 +14,8 @@ abstract final class Assets {
   static const String google = 'assets/google.svg';
   static const String location = 'assets/Location Access.png';
   static const String menu = 'assets/Menu.svg';
+  static const String homeIcon = 'assets/Icon.svg';
+
 
 
 

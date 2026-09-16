@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/features/auth/presentation/views/forget_password_view.dart';
 import 'package:food_delivery_app/features/auth/presentation/views/signup_view.dart';
+import 'package:food_delivery_app/features/home/presentation/views/home_view.dart';
+import 'package:food_delivery_app/features/location/presentation/views/location_view.dart';
 import 'package:food_delivery_app/features/splash/presention/views/splash_view.dart';
 
 import '../../features/auth/presentation/views/login_view.dart';
@@ -20,6 +22,10 @@ Route<dynamic> onGenrateRoute (RouteSettings settings){
       return MaterialPageRoute(builder: (context) => const SignupView(),);
     case ForgetPasswordView.routeName:
       return MaterialPageRoute(builder: (context) => const ForgetPasswordView(),);
+    case HomeView.routeName:
+      return MaterialPageRoute(builder: (context) => const HomeView(),);
+    case LocationView.routeName:
+      return MaterialPageRoute(builder: (context) => const LocationView(),);
 
     default:
       return MaterialPageRoute(

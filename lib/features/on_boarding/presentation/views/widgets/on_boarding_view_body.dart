@@ -7,7 +7,7 @@ import 'package:food_delivery_app/features/auth/presentation/views/login_view.da
 import 'package:food_delivery_app/features/on_boarding/presentation/views/widgets/on_boarding_page_view.dart';
 import 'package:food_delivery_app/features/on_boarding/presentation/views/widgets/page_view_item.dart';
 import '../../../../../core/services/shared_preferences/shared_preferences_singleton.dart';
-import '../../../../../core/utilis/assets/assets.dart';
+import '../../../../../core/utilis/assets.dart';
 
 class OnBoardingViewBody extends StatefulWidget {
   const OnBoardingViewBody({super.key});
