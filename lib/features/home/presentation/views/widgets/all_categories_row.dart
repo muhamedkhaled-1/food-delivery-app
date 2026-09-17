@@ -14,7 +14,7 @@ class AllCategoriesRow extends StatelessWidget {
           'All Categories',
           style: TextStyles.semiBold16,
         ),
-
+        Spacer(),
         GestureDetector(
           onTap: () {
           },

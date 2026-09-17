@@ -27,9 +27,12 @@ abstract class TextStyles {
   );
   static const TextStyle semiBold14 = TextStyle(
     fontWeight: FontWeight.w700,
-    fontSize: 13,
+    fontSize: 14,
   );
-
+  static const TextStyle semiBold18 = TextStyle(
+    fontWeight: FontWeight.w700,
+    fontSize: 18,
+  );
   static const TextStyle regular13 = TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 13,

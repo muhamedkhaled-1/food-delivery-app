@@ -15,6 +15,8 @@ abstract final class Assets {
   static const String location = 'assets/Location Access.png';
   static const String menu = 'assets/Menu.svg';
   static const String homeIcon = 'assets/Icon.svg';
+  static const String pizzaTest = 'assets/pizza_test.svg';
+
 
 
 
