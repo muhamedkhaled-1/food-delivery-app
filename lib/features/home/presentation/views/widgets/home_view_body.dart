@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:food_delivery_app/core/widgets/search_text_field.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/all_categories_row.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/categories_list_item.dart';
+import 'package:food_delivery_app/features/home/presentation/views/widgets/categories_list_view.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/user_name_line.dart';
 
@@ -33,8 +34,8 @@ class HomeViewBody extends StatelessWidget {
         sliver: SliverToBoxAdapter(child: AllCategoriesRow(),),
         ),
         SliverPadding(
-          padding:EdgeInsetsGeometry.only(left: 24,right: 24,top: 21),
-          sliver: SliverToBoxAdapter(child: CategoriesListItem(),),
+          padding:EdgeInsetsGeometry.only(top: 21,left: 5),
+          sliver: SliverToBoxAdapter(child: CategoriesListView(),),
         )
 
 

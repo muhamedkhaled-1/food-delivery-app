@@ -6,8 +6,9 @@ import '../../../../../core/utilis/app_text_styles.dart';
 import '../../../../../core/utilis/assets.dart';
 
 class CategoriesListItem extends StatelessWidget {
-  const CategoriesListItem({super.key});
-
+  const CategoriesListItem({super.key, required this.image, required this.title});
+  final String image;
+  final String title;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -31,10 +32,9 @@ class CategoriesListItem extends StatelessWidget {
           ),
           child: Container(
             child: SvgPicture.asset(
-              Assets.pizzaTest,
+              image,
               fit: BoxFit.fill,),
             decoration: BoxDecoration(
-
               borderRadius: BorderRadius.circular(15),
             ),
           ),
@@ -44,7 +44,7 @@ class CategoriesListItem extends StatelessWidget {
 
         // Pizza text
         Text(
-          'Pizza',
+          title,
           style: TextStyles.semiBold18,
         ),
       ],
