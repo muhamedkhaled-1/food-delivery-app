@@ -6,6 +6,7 @@ import 'package:food_delivery_app/features/home/presentation/views/widgets/categ
 import 'package:food_delivery_app/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/open_restaurants_row.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/restaurant_list_item.dart';
+import 'package:food_delivery_app/features/home/presentation/views/widgets/restaurant_list_view.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/user_name_line.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -45,7 +46,7 @@ class HomeViewBody extends StatelessWidget {
         ),
         SliverPadding(
           padding:EdgeInsetsGeometry.only(left: 24,right: 24,top: 20),
-          sliver: SliverToBoxAdapter(child:RestaurantListItem(),),
+          sliver: SliverToBoxAdapter(child:RestaurantListView(),),
         )
 
 
