@@ -16,6 +16,12 @@ abstract final class Assets {
   static const String menu = 'assets/Menu.svg';
   static const String homeIcon = 'assets/Icon.svg';
   static const String pizzaTest = 'assets/pizza_test.svg';
+  static const String foodTest = 'assets/foodtest.jpg';
+  static const String star = 'assets/Star.svg';
+  static const String delivery = 'assets/Delivery.svg';
+  static const String clock = 'assets/Clock.svg';
+
+
 
 
 

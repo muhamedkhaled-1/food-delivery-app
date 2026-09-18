@@ -4,6 +4,8 @@ import 'package:food_delivery_app/features/home/presentation/views/widgets/all_c
 import 'package:food_delivery_app/features/home/presentation/views/widgets/categories_list_item.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/categories_list_view.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/custom_home_app_bar.dart';
+import 'package:food_delivery_app/features/home/presentation/views/widgets/open_restaurants_row.dart';
+import 'package:food_delivery_app/features/home/presentation/views/widgets/restaurant_list_item.dart';
 import 'package:food_delivery_app/features/home/presentation/views/widgets/user_name_line.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -14,12 +16,12 @@ class HomeViewBody extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverPadding(
-          padding: EdgeInsetsGeometry.only(left: 14,right: 24),
+          padding: EdgeInsetsGeometry.only(left: 24,right: 24),
           sliver: SliverToBoxAdapter(
             child: CustomHomeAppBar(),
           ),
         ),
-        SliverPadding(padding: EdgeInsetsGeometry.only(left: 24),
+        SliverPadding(padding: EdgeInsetsGeometry.only(left: 24,right: 24),
           sliver:  SliverToBoxAdapter(
           child: UserNameLine(),
         ),),
@@ -36,6 +38,14 @@ class HomeViewBody extends StatelessWidget {
         SliverPadding(
           padding:EdgeInsetsGeometry.only(top: 21,left: 5),
           sliver: SliverToBoxAdapter(child: CategoriesListView(),),
+        ),
+        SliverPadding(
+          padding:EdgeInsetsGeometry.only(left: 24,right: 24,top: 32),
+          sliver: SliverToBoxAdapter(child: OpenRestaurantsRow(),),
+        ),
+        SliverPadding(
+          padding:EdgeInsetsGeometry.only(left: 24,right: 24,top: 20),
+          sliver: SliverToBoxAdapter(child:RestaurantListItem(),),
         )
 
 

@@ -28,7 +28,7 @@ class CustomHomeAppBar extends StatelessWidget {
           contentPadding: EdgeInsets.zero,
           leading: IconButton(
             onPressed: () {},
-            icon: SvgPicture.asset(Assets.menu,),
+            icon: SvgPicture.asset(Assets.menu),
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
 
